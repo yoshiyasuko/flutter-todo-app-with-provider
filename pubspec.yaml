@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.7.0 <3.0.0"
+  sdk: ">=2.12.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -32,18 +32,18 @@ dependencies:
   provider: ^5.0.0
 
   # Database
-  moor: ^2.2.0
-  sqlite3_flutter_libs: ^0.4.0
-  path_provider: ^1.5.1
-  path: ^1.6.4
+  moor: any
+  sqlite3_flutter_libs: any
+  path_provider: any
+  path: any
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # Database
-  moor_generator: ^2.2.0
-  build_runner: ^1.7.2
+  moor_generator: any
+  build_runner: any
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

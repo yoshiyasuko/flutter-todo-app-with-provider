@@ -16,15 +16,17 @@ class DataRepository {
     List<TodoItem> result = [];
     List<TableTodoItemData> recordList = await _database.allTodoItems;
     recordList.forEach((element) {
-      result.add(TodoItem(
-          element.id, element.title, element.memo, element.isCompleted));
+      result.add(TodoItem(element.id, element.title, element.isCompleted));
     });
     return result;
   }
 
+  Future<void> createTodoItem(String title) async {
+    await _database.insert(title);
+  }
+
   Future<void> updateTodoItem(TodoItem item) async {
-    await _database.updateTodoItem(
-        item.id, item.title, item.memo, item.isCompleted);
+    await _database.updateTodoItem(item.id, item.title, item.isCompleted);
   }
 
   Future<void> deleteTodoItem(int id) async {

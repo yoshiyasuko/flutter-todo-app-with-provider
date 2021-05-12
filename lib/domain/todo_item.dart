@@ -1,8 +1,7 @@
 class TodoItem {
-  TodoItem(this.id, this.title, this.memo, this.isCompleted);
+  TodoItem(this.id, this.title, this.isCompleted);
 
   int id;
   String title;
-  String? memo;
   bool isCompleted;
 }

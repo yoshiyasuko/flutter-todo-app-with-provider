@@ -15,24 +15,18 @@ class MyDatabase extends _$MyDatabase {
   @override
   int get schemaVersion => 1;
 
-  Future<int> insert(String title, String? memo) {
-    Value<String> valueMemo =
-        memo == null ? Value<String>.absent() : Value(memo);
-
+  Future<int> insert(String title) {
     return into(tableTodoItem)
-        .insert(TableTodoItemCompanion.insert(title: title, memo: valueMemo));
+        .insert(TableTodoItemCompanion.insert(title: title));
   }
 
   Future<List<TableTodoItemData>> get allTodoItems =>
       select(tableTodoItem).get();
 
-  Future<int> updateTodoItem(
-      int id, String title, String? memo, bool isCompleted) {
-    Value<String> valueMemo =
-        memo == null ? Value<String>.absent() : Value(memo);
+  Future<int> updateTodoItem(int id, String title, bool isCompleted) {
     return (update(tableTodoItem)..where((it) => it.id.equals(id))).write(
         TableTodoItemCompanion.insert(
-            title: title, memo: valueMemo, isCompleted: Value(isCompleted)));
+            title: title, isCompleted: Value(isCompleted)));
   }
 
   Future<int> deleteTodoItem(int id) {

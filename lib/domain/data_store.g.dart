@@ -11,13 +11,9 @@ class TableTodoItemData extends DataClass
     implements Insertable<TableTodoItemData> {
   final int id;
   final String title;
-  final String? memo;
   final bool isCompleted;
   TableTodoItemData(
-      {required this.id,
-      required this.title,
-      this.memo,
-      required this.isCompleted});
+      {required this.id, required this.title, required this.isCompleted});
   factory TableTodoItemData.fromData(
       Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
@@ -29,7 +25,6 @@ class TableTodoItemData extends DataClass
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       title:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
-      memo: stringType.mapFromDatabaseResponse(data['${effectivePrefix}memo']),
       isCompleted: boolType
           .mapFromDatabaseResponse(data['${effectivePrefix}is_completed'])!,
     );
@@ -39,9 +34,6 @@ class TableTodoItemData extends DataClass
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['title'] = Variable<String>(title);
-    if (!nullToAbsent || memo != null) {
-      map['memo'] = Variable<String?>(memo);
-    }
     map['is_completed'] = Variable<bool>(isCompleted);
     return map;
   }
@@ -50,7 +42,6 @@ class TableTodoItemData extends DataClass
     return TableTodoItemCompanion(
       id: Value(id),
       title: Value(title),
-      memo: memo == null && nullToAbsent ? const Value.absent() : Value(memo),
       isCompleted: Value(isCompleted),
     );
   }
@@ -61,7 +52,6 @@ class TableTodoItemData extends DataClass
     return TableTodoItemData(
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String>(json['title']),
-      memo: serializer.fromJson<String?>(json['memo']),
       isCompleted: serializer.fromJson<bool>(json['isCompleted']),
     );
   }
@@ -71,17 +61,14 @@ class TableTodoItemData extends DataClass
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'title': serializer.toJson<String>(title),
-      'memo': serializer.toJson<String?>(memo),
       'isCompleted': serializer.toJson<bool>(isCompleted),
     };
   }
 
-  TableTodoItemData copyWith(
-          {int? id, String? title, String? memo, bool? isCompleted}) =>
+  TableTodoItemData copyWith({int? id, String? title, bool? isCompleted}) =>
       TableTodoItemData(
         id: id ?? this.id,
         title: title ?? this.title,
-        memo: memo ?? this.memo,
         isCompleted: isCompleted ?? this.isCompleted,
       );
   @override
@@ -89,65 +76,54 @@ class TableTodoItemData extends DataClass
     return (StringBuffer('TableTodoItemData(')
           ..write('id: $id, ')
           ..write('title: $title, ')
-          ..write('memo: $memo, ')
           ..write('isCompleted: $isCompleted')
           ..write(')'))
         .toString();
   }
 
   @override
-  int get hashCode => $mrjf($mrjc(id.hashCode,
-      $mrjc(title.hashCode, $mrjc(memo.hashCode, isCompleted.hashCode))));
+  int get hashCode =>
+      $mrjf($mrjc(id.hashCode, $mrjc(title.hashCode, isCompleted.hashCode)));
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
       (other is TableTodoItemData &&
           other.id == this.id &&
           other.title == this.title &&
-          other.memo == this.memo &&
           other.isCompleted == this.isCompleted);
 }
 
 class TableTodoItemCompanion extends UpdateCompanion<TableTodoItemData> {
   final Value<int> id;
   final Value<String> title;
-  final Value<String?> memo;
   final Value<bool> isCompleted;
   const TableTodoItemCompanion({
     this.id = const Value.absent(),
     this.title = const Value.absent(),
-    this.memo = const Value.absent(),
     this.isCompleted = const Value.absent(),
   });
   TableTodoItemCompanion.insert({
     this.id = const Value.absent(),
     required String title,
-    this.memo = const Value.absent(),
     this.isCompleted = const Value.absent(),
   }) : title = Value(title);
   static Insertable<TableTodoItemData> custom({
     Expression<int>? id,
     Expression<String>? title,
-    Expression<String?>? memo,
     Expression<bool>? isCompleted,
   }) {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (title != null) 'title': title,
-      if (memo != null) 'memo': memo,
       if (isCompleted != null) 'is_completed': isCompleted,
     });
   }
 
   TableTodoItemCompanion copyWith(
-      {Value<int>? id,
-      Value<String>? title,
-      Value<String?>? memo,
-      Value<bool>? isCompleted}) {
+      {Value<int>? id, Value<String>? title, Value<bool>? isCompleted}) {
     return TableTodoItemCompanion(
       id: id ?? this.id,
       title: title ?? this.title,
-      memo: memo ?? this.memo,
       isCompleted: isCompleted ?? this.isCompleted,
     );
   }
@@ -161,9 +137,6 @@ class TableTodoItemCompanion extends UpdateCompanion<TableTodoItemData> {
     if (title.present) {
       map['title'] = Variable<String>(title.value);
     }
-    if (memo.present) {
-      map['memo'] = Variable<String?>(memo.value);
-    }
     if (isCompleted.present) {
       map['is_completed'] = Variable<bool>(isCompleted.value);
     }
@@ -175,7 +148,6 @@ class TableTodoItemCompanion extends UpdateCompanion<TableTodoItemData> {
     return (StringBuffer('TableTodoItemCompanion(')
           ..write('id: $id, ')
           ..write('title: $title, ')
-          ..write('memo: $memo, ')
           ..write('isCompleted: $isCompleted')
           ..write(')'))
         .toString();
@@ -206,17 +178,6 @@ class $TableTodoItemTable extends TableTodoItem
     );
   }
 
-  final VerificationMeta _memoMeta = const VerificationMeta('memo');
-  @override
-  late final GeneratedTextColumn memo = _constructMemo();
-  GeneratedTextColumn _constructMemo() {
-    return GeneratedTextColumn(
-      'memo',
-      $tableName,
-      true,
-    );
-  }
-
   final VerificationMeta _isCompletedMeta =
       const VerificationMeta('isCompleted');
   @override
@@ -227,7 +188,7 @@ class $TableTodoItemTable extends TableTodoItem
   }
 
   @override
-  List<GeneratedColumn> get $columns => [id, title, memo, isCompleted];
+  List<GeneratedColumn> get $columns => [id, title, isCompleted];
   @override
   $TableTodoItemTable get asDslTable => this;
   @override
@@ -247,10 +208,6 @@ class $TableTodoItemTable extends TableTodoItem
           _titleMeta, title.isAcceptableOrUnknown(data['title']!, _titleMeta));
     } else if (isInserting) {
       context.missing(_titleMeta);
-    }
-    if (data.containsKey('memo')) {
-      context.handle(
-          _memoMeta, memo.isAcceptableOrUnknown(data['memo']!, _memoMeta));
     }
     if (data.containsKey('is_completed')) {
       context.handle(

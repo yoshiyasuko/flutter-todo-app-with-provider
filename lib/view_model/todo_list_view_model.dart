@@ -17,6 +17,12 @@ class TodoListViewModel extends ChangeNotifier {
     });
   }
 
+  void createTodoItem(String title) async {
+    _dataRepository.createTodoItem(title).then((_) {
+      fetch();
+    });
+  }
+
   void updateTodoItem(TodoItem item) async {
     _dataRepository.updateTodoItem(item).then((_) {
       fetch();

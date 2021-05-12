@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter_todo_app_with_provider/domain/table_todo_item.dart';
 import 'package:moor/ffi.dart';
 import 'package:moor/moor.dart';
-import 'package:path/path.dart' as p;
 import 'package:path_provider/path_provider.dart';
 
 part 'data_store.g.dart';
@@ -23,7 +22,8 @@ class MyDatabase extends _$MyDatabase {
         .insert(TableTodoItemCompanion.insert(title: title, memo: valueMemo));
   }
 
-  Future<List<TodoItem>> get allTodoItems => select(tableTodoItem).get();
+  Future<List<TableTodoItemData>> get allTodoItems =>
+      select(tableTodoItem).get();
 
   Future<int> updateTodoItem(
       int id, String title, String? memo, bool isCompleted) {

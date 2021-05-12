@@ -1,6 +1,5 @@
 import 'package:moor/moor.dart';
 
-@DataClassName("TodoItem")
 class TableTodoItem extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get title => text()();

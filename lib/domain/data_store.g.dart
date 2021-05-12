@@ -7,23 +7,25 @@ part of 'data_store.dart';
 // **************************************************************************
 
 // ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
-class TodoItem extends DataClass implements Insertable<TodoItem> {
+class TableTodoItemData extends DataClass
+    implements Insertable<TableTodoItemData> {
   final int id;
   final String title;
   final String? memo;
   final bool isCompleted;
-  TodoItem(
+  TableTodoItemData(
       {required this.id,
       required this.title,
       this.memo,
       required this.isCompleted});
-  factory TodoItem.fromData(Map<String, dynamic> data, GeneratedDatabase db,
+  factory TableTodoItemData.fromData(
+      Map<String, dynamic> data, GeneratedDatabase db,
       {String? prefix}) {
     final effectivePrefix = prefix ?? '';
     final intType = db.typeSystem.forDartType<int>();
     final stringType = db.typeSystem.forDartType<String>();
     final boolType = db.typeSystem.forDartType<bool>();
-    return TodoItem(
+    return TableTodoItemData(
       id: intType.mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       title:
           stringType.mapFromDatabaseResponse(data['${effectivePrefix}title'])!,
@@ -53,10 +55,10 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
     );
   }
 
-  factory TodoItem.fromJson(Map<String, dynamic> json,
+  factory TableTodoItemData.fromJson(Map<String, dynamic> json,
       {ValueSerializer? serializer}) {
     serializer ??= moorRuntimeOptions.defaultSerializer;
-    return TodoItem(
+    return TableTodoItemData(
       id: serializer.fromJson<int>(json['id']),
       title: serializer.fromJson<String>(json['title']),
       memo: serializer.fromJson<String?>(json['memo']),
@@ -74,9 +76,9 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
     };
   }
 
-  TodoItem copyWith(
+  TableTodoItemData copyWith(
           {int? id, String? title, String? memo, bool? isCompleted}) =>
-      TodoItem(
+      TableTodoItemData(
         id: id ?? this.id,
         title: title ?? this.title,
         memo: memo ?? this.memo,
@@ -84,7 +86,7 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
       );
   @override
   String toString() {
-    return (StringBuffer('TodoItem(')
+    return (StringBuffer('TableTodoItemData(')
           ..write('id: $id, ')
           ..write('title: $title, ')
           ..write('memo: $memo, ')
@@ -99,14 +101,14 @@ class TodoItem extends DataClass implements Insertable<TodoItem> {
   @override
   bool operator ==(dynamic other) =>
       identical(this, other) ||
-      (other is TodoItem &&
+      (other is TableTodoItemData &&
           other.id == this.id &&
           other.title == this.title &&
           other.memo == this.memo &&
           other.isCompleted == this.isCompleted);
 }
 
-class TableTodoItemCompanion extends UpdateCompanion<TodoItem> {
+class TableTodoItemCompanion extends UpdateCompanion<TableTodoItemData> {
   final Value<int> id;
   final Value<String> title;
   final Value<String?> memo;
@@ -123,7 +125,7 @@ class TableTodoItemCompanion extends UpdateCompanion<TodoItem> {
     this.memo = const Value.absent(),
     this.isCompleted = const Value.absent(),
   }) : title = Value(title);
-  static Insertable<TodoItem> custom({
+  static Insertable<TableTodoItemData> custom({
     Expression<int>? id,
     Expression<String>? title,
     Expression<String?>? memo,
@@ -181,7 +183,7 @@ class TableTodoItemCompanion extends UpdateCompanion<TodoItem> {
 }
 
 class $TableTodoItemTable extends TableTodoItem
-    with TableInfo<$TableTodoItemTable, TodoItem> {
+    with TableInfo<$TableTodoItemTable, TableTodoItemData> {
   final GeneratedDatabase _db;
   final String? _alias;
   $TableTodoItemTable(this._db, [this._alias]);
@@ -233,7 +235,7 @@ class $TableTodoItemTable extends TableTodoItem
   @override
   final String actualTableName = 'table_todo_item';
   @override
-  VerificationContext validateIntegrity(Insertable<TodoItem> instance,
+  VerificationContext validateIntegrity(Insertable<TableTodoItemData> instance,
       {bool isInserting = false}) {
     final context = VerificationContext();
     final data = instance.toColumns(true);
@@ -262,9 +264,9 @@ class $TableTodoItemTable extends TableTodoItem
   @override
   Set<GeneratedColumn> get $primaryKey => {id};
   @override
-  TodoItem map(Map<String, dynamic> data, {String? tablePrefix}) {
+  TableTodoItemData map(Map<String, dynamic> data, {String? tablePrefix}) {
     final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : null;
-    return TodoItem.fromData(data, _db, prefix: effectivePrefix);
+    return TableTodoItemData.fromData(data, _db, prefix: effectivePrefix);
   }
 
   @override

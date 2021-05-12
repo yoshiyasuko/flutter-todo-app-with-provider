@@ -23,7 +23,8 @@ class TodoListViewModel extends ChangeNotifier {
     });
   }
 
-  void deleteTodoItem(int id) async {
+  void deleteTodoItem(int index) async {
+    var id = index + 1;
     _dataRepository.deleteTodoItem(id).then((_) {
       fetch();
     });

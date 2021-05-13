@@ -41,7 +41,7 @@ class TodoListView extends StatelessWidget {
       background: Container(
         color: Colors.red,
       ),
-      key: Key(item.title),
+      key: ObjectKey(item.title),
       onDismissed: (direction) {
         todoListViewModel.deleteTodoItem(index);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(

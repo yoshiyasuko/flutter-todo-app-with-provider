@@ -50,7 +50,14 @@ class TodoListView extends StatelessWidget {
           duration: const Duration(seconds: 3),
         ));
       },
-      child: ListTile(title: Text(item.title)),
+      child: CheckboxListTile(
+        title: Text(item.title),
+        value: item.isCompleted,
+        onChanged: (checked) {
+          item.isCompleted = checked == null ? false : checked;
+          todoListViewModel.updateTodoItem(item);
+        },
+      ),
     );
   }
 

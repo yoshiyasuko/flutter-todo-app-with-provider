@@ -11,27 +11,26 @@ class TodoListViewModel extends ChangeNotifier {
   late List<TodoItem> todoItems;
 
   void fetch() async {
-    _dataRepository.getAllTodoItems().then((items) {
+    await _dataRepository.getAllTodoItems().then((items) {
       todoItems = items;
       notifyListeners();
     });
   }
 
   void createTodoItem(String title) async {
-    _dataRepository.createTodoItem(title).then((_) {
+    await _dataRepository.createTodoItem(title).then((_) {
       fetch();
     });
   }
 
   void updateTodoItem(TodoItem item) async {
-    _dataRepository.updateTodoItem(item).then((_) {
+    await _dataRepository.updateTodoItem(item).then((_) {
       fetch();
     });
   }
 
-  void deleteTodoItem(int index) async {
-    var id = index + 1;
-    _dataRepository.deleteTodoItem(id).then((_) {
+  void deleteTodoItem(int id) async {
+    await _dataRepository.deleteTodoItem(id).then((_) {
       fetch();
     });
   }

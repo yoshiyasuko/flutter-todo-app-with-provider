@@ -43,7 +43,7 @@ class TodoListView extends StatelessWidget {
       ),
       key: ObjectKey(item.title),
       onDismissed: (direction) {
-        todoListViewModel.deleteTodoItem(index);
+        todoListViewModel.deleteTodoItem(item.id);
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content:
               Text("「${todoListViewModel.todoItems[index].title}」のタスクを削除しました。"),
